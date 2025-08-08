@@ -41,6 +41,26 @@ pulumi up
 minikube service recipe-app-service
 ```
 
+## Customizing the Deployment Image
+This Pulumi program lets you set the container image repository and tag at deploy time using Pulumi configuration.  
+By default, it pulls from ghcr.io/jamesbarber6406/recipe-site:latest.
+
+To use your own image:
+```bash
+# Set the image repository
+pulumi config set imageRepo ghcr.io/<your-username>/<your-image>
+```
+
+```bash
+# Set the image tag (defaults to latest)
+pulumi config set imageTag <tag>
+```
+
+```bash
+# Deploy
+pulumi up
+```
+
 ## What I Learned
 - Using Pulumi to manage K8s infrastructure
 - Writing Kubernetes deployments in Python

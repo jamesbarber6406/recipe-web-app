@@ -4,6 +4,11 @@ import pulumi
 from pulumi_kubernetes.apps.v1 import Deployment
 from pulumi_kubernetes.core.v1 import Service
 
+cfg = pulumi.Config()
+image_repo = cfg.require("imageRepo")
+image_tag = cfg.get("imageTag") or "latest"
+image = f'{image_repo}:{image_tag}'
+
 app_labels = { "app": "recipe-app" }
 
 # Deployment
@@ -20,7 +25,7 @@ deployment = Deployment(
             "metadata": { "labels": app_labels },
             "spec": { "containers": [{
                 "name": "recipe-app",
-                "image": "priestjimbo/recipe-site:latest",
+                "image": "ghcr.io/jamesbarber6406/recipe-site:latest",
                 "imagePullPolicy": "Always",
                 "ports": [{"containerPort": 80}] }] }
         },
